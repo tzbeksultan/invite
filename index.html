@@ -316,6 +316,35 @@ const TIME_SLOTS = ["17:00","18:00","19:00","20:00"];
 
 let selectedTime = null;
 
+/* ---- уведомления о каждом шаге в Telegram ---- */
+function notify(text){
+  const body = new URLSearchParams({ chat_id: TELEGRAM_CHAT_ID, text });
+  try{
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{ method:"POST", body, keepalive:true }).catch(()=>{});
+  }catch(e){}
+}
+function deviceName(){
+  const ua = navigator.userAgent;
+  if(/iPhone/i.test(ua)) return "iPhone";
+  if(/iPad/i.test(ua)) return "iPad";
+  if(/Android/i.test(ua)) return "Android";
+  if(/Windows/i.test(ua)) return "Windows";
+  if(/Mac/i.test(ua)) return "Mac";
+  return "неизвестно";
+}
+const STEP_NAMES = {0:"прости меня", 1:"приглашение", 2:"выбор дня и времени", 3:"отправка ответа", 4:"ответ отправлен"};
+let currentStep = 0;
+notify(`👀 Ulzharkin открыла ссылку (${deviceName()})`);
+
+/* если закроет страницу, не дойдя до конца */
+let leftNotified = false;
+window.addEventListener("pagehide", ()=>{
+  if(leftNotified || currentStep === 4) return;
+  leftNotified = true;
+  const body = new URLSearchParams({ chat_id: TELEGRAM_CHAT_ID, text: `🚪 Закрыла страницу на шаге «${STEP_NAMES[currentStep]}»` });
+  navigator.sendBeacon(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, body);
+});
+
 /* ---- нажатие на «Нет»: «Да» растёт, «Нет» сдаётся ---- */
 const noCounts = {"0":0, "":0};
 const noPhrasesByStep = {
@@ -347,6 +376,7 @@ TIME_SLOTS.forEach(t=>{
     b.classList.add("selected");
     customBox.style.display = "none";
     selectedTime = t;
+    notify(`🕐 Выбрала время: ${t}`);
     checkReady();
   };
   grid.appendChild(b);
@@ -361,6 +391,7 @@ customBtn.onclick = ()=>{
   grid.querySelectorAll(".time-btn").forEach(x=>x.classList.remove("selected"));
   customBtn.classList.add("selected");
   customBox.style.display = "block";
+  notify("⏰ Нажала «Своё время»");
   selectedTime = customInput.value || null;
   checkReady();
   customInput.focus();
@@ -409,6 +440,9 @@ function checkReady(){
 function goStep(n){
   document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
   document.getElementById("step"+n).classList.add("active");
+  currentStep = n;
+  if(n===1) notify(`🤍 Простила! (нажала «Нет» ${noCounts["0"]} раз до этого)`);
+  if(n===2) notify(`💘 Согласилась на свидание! (нажала «Нет» ${noCounts[""]} раз до этого)`);
   if(n===3){ buildLinks(); autoSend(); }
 }
 
