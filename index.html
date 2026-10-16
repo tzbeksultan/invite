@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear miss Ulzharkin 🌹</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ====== НАСТРОЙКИ ДИЗАЙНА ====== */
+  :root{
+    --sky-top:#140d24;
+    --sky-mid:#2b1638;
+    --sky-bottom:#4d2244;
+    --rose:#f4c6d6;
+    --rose-deep:#e07fa0;
+    --rose-dark:#b8456e;
+    --gold:#f0d29a;
+    --gold-soft:rgba(240,210,154,.55);
+    --ink:#fff7fa;
+    --muted:rgba(255,247,250,.72);
+    --card:rgba(255,255,255,.06);
+    --card-border:rgba(240,210,154,.28);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%,rgba(224,127,160,.18),transparent 70%),
+      radial-gradient(ellipse 60% 40% at 50% 100%,rgba(240,210,154,.12),transparent 70%),
+      linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 55%,var(--sky-bottom) 100%);
+    background-color:var(--sky-top);
+    background-attachment:fixed;
+    color:var(--ink);
+    min-height:100dvh;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px 16px;
+    overflow-x:hidden;
+  }
+
+  /* мерцающие звёзды */
+  .star{
+    position:fixed;width:2px;height:2px;border-radius:50%;
+    background:#fff;opacity:.2;
+    animation:twinkle ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes twinkle{50%{opacity:.9;transform:scale(1.4)}}
+
+  /* плавающие лепестки */
+  .heart{
+    position:fixed;bottom:-40px;
+    font-size:22px;opacity:.4;
+    animation:float linear infinite;
+    pointer-events:none;user-select:none;
+    filter:drop-shadow(0 0 6px rgba(244,198,214,.4));
+  }
+  @keyframes float{
+    to{transform:translateY(-110vh) rotate(40deg);opacity:0}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .heart{display:none}
+    *{animation:none!important;transition:none!important}
+  }
+
+  .card{
+    position:relative;
+    width:100%;max-width:420px;
+    background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+    border:1px solid var(--card-border);
+    border-radius:28px;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    padding:40px 26px 34px;
+    text-align:center;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,.45),
+      inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  /* тонкая золотая рамка внутри */
+  .card::before{
+    content:"";position:absolute;inset:10px;
+    border:1px solid rgba(240,210,154,.14);
+    border-radius:20px;pointer-events:none;
+  }
+
+  .step{display:none;animation:appear .6s ease both}
+  .step.active{display:block}
+  @keyframes appear{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:none}
+  }
+
+  .emoji-big{
+    font-size:54px;display:block;margin-bottom:12px;
+    filter:drop-shadow(0 6px 18px rgba(224,127,160,.45));
+    animation:breathe 3.5s ease-in-out infinite;
+  }
+  @keyframes breathe{50%{transform:scale(1.07)}}
+
+  .dear{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:17px;letter-spacing:3px;color:var(--gold-soft);
+    text-transform:lowercase;
+  }
+  .name{
+    font-family:'Great Vibes',cursive;
+    font-size:54px;line-height:1.1;font-weight:400;
+    background:linear-gradient(120deg,#f7e2b4 0%,var(--gold) 40%,#f4c6d6 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin:2px 0 6px;
+    text-shadow:0 0 30px rgba(240,210,154,.15);
+  }
+  .divider{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    color:var(--gold-soft);font-size:11px;margin:4px 0 18px;
+  }
+  .divider::before,.divider::after{
+    content:"";height:1px;width:56px;
+    background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);
+  }
+
+  h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:30px;line-height:1.2;font-weight:600;
+    margin-bottom:10px;color:var(--ink);letter-spacing:.3px;
+  }
+  .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.5}
+
+  .btn-row{display:flex;gap:14px;justify-content:center}
+  .btn{
+    font-size:16px;font-weight:600;letter-spacing:.5px;
+    padding:14px 36px;border-radius:999px;
+    border:none;cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+    font-family:inherit;
+  }
+  .btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .btn-yes{
+    background:linear-gradient(135deg,var(--rose-deep),var(--rose-dark));
+    color:#fff;
+    box-shadow:0 10px 28px rgba(184,69,110,.45),inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .btn-yes:hover{transform:scale(1.06);box-shadow:0 14px 34px rgba(184,69,110,.55)}
+  .btn-yes:active{transform:scale(.97)}
+
+  /* КНОПКА "НЕТ" — недоступна :) */
+  .no-wrap{position:relative;display:inline-block}
+  .btn-no{
+    background:transparent;
+    color:rgba(255,247,250,.5);
+    cursor:pointer;
+    border:1px solid rgba(240,210,154,.25);
+    transition:all .25s ease;
+  }
+  .btn-yes{transition:transform .25s ease, box-shadow .15s ease}
+  .btn-row{align-items:center;flex-wrap:wrap}
+  .no-hint{
+    position:absolute;left:50%;bottom:calc(100% + 10px);
+    transform:translateX(-50%);
+    background:var(--gold);color:#3a2a10;
+    font-size:12px;font-weight:600;
+    padding:7px 12px;border-radius:999px;
+    white-space:nowrap;
+    opacity:0;transition:opacity .2s;
+    pointer-events:none;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
+  }
+  .no-wrap:hover .no-hint,.no-wrap:active .no-hint{opacity:1}
+
+  /* шаг 2 — дата и время */
+  label.block{
+    display:block;text-align:left;
+    font-size:11px;font-weight:600;color:var(--gold-soft);
+    margin:20px 0 8px;letter-spacing:2px;text-transform:uppercase;
+  }
+  input[type=date]{
+    width:100%;padding:13px 14px;
+    border-radius:14px;border:1px solid var(--card-border);
+    background:rgba(255,255,255,.07);color:var(--ink);
+    font-size:16px;font-family:inherit;
+    color-scheme:dark;
+  }
+  .times{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .time-btn{
+    padding:12px 4px;border-radius:14px;
+    border:1px solid rgba(240,210,154,.2);
+    background:rgba(255,255,255,.05);
+    color:var(--ink);font-size:14px;font-weight:500;
+    cursor:pointer;transition:all .18s;font-family:inherit;
+  }
+  .time-btn:hover{background:rgba(244,198,214,.14);border-color:rgba(240,210,154,.4)}
+  .time-btn.selected{
+    background:linear-gradient(135deg,var(--rose-deep),var(--rose-dark));
+    border-color:transparent;
+    color:#fff;box-shadow:0 8px 20px rgba(184,69,110,.4);
+  }
+  .btn-next{width:100%;margin-top:26px}
+  .btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+  /* шаг 3 — отправка */
+  .summary{
+    background:rgba(240,210,154,.07);
+    border:1px solid var(--card-border);
+    border-radius:18px;padding:18px;
+    font-size:15px;line-height:1.8;margin-bottom:22px;
+  }
+  .summary b{color:var(--gold);font-weight:600}
+  .send-btn{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;padding:15px;border-radius:999px;
+    font-size:16px;font-weight:600;color:#fff;
+    text-decoration:none;margin-bottom:12px;
+    transition:transform .15s;
+  }
+  .send-btn:hover{transform:scale(1.03)}
+  .wa{background:#22b358}
+  .tg{background:#2a9fd8}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- ШАГ 1: вопрос -->
+  <!-- ШАГ 0: просьба о прощении -->
+  <div class="step active" id="step0">
+    <span class="emoji-big">😉</span>
+    <p class="dear">dear miss</p>
+    <p class="name">Ulzharkin</p>
+    <h1>Прости меня</h1>
+    <p class="sub">Мне очень жаль, что так вышло.<br>Ты мне правда дорога, давай всё исправим</p>
+    <div class="btn-row">
+      <button class="btn btn-yes" id="yesBtn0" onclick="goStep(1)">Прощаю 🤍</button>
+      <span class="no-wrap">
+        <button class="btn btn-no" id="noBtn0" onclick="noClick('0')">Нет</button>
+        <span class="no-hint" id="noHint0">точно нет? 😉</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ШАГ 1: приглашение -->
+  <div class="step" id="step1">
+    <span class="emoji-big">🌹</span>
+    <h1>Тогда приглашаю тебя на&nbsp;свидание</h1>
+    <p class="sub">Буду очень рад, если согласишься</p>
+    <div class="btn-row">
+      <button class="btn btn-yes" id="yesBtn" onclick="goStep(2)">Да</button>
+      <span class="no-wrap">
+        <button class="btn btn-no" id="noBtn" onclick="noClick('')">Нет</button>
+        <span class="no-hint" id="noHint">может, всё-таки да? 🙂</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ШАГ 2: дата и время -->
+  <div class="step" id="step2">
+    <span class="emoji-big">🌸</span>
+    <h1>Спасибо! Когда тебе удобно?</h1>
+    <p class="sub">Выбери день и время</p>
+
+    <label class="block">День</label>
+    <div class="times" id="daysGrid"></div>
+
+    <label class="block">Время</label>
+    <div class="times" id="timesGrid"></div>
+
+    <button class="btn btn-yes btn-next" id="nextBtn" disabled onclick="goStep(3)">Дальше →</button>
+  </div>
+
+  <!-- ШАГ 3: отправка ответа -->
+  <div class="step" id="step3">
+    <span class="emoji-big">💌</span>
+    <h1>Твой ответ</h1>
+
+    <div class="summary" id="summaryBox"></div>
+
+    <p class="sub" id="sendStatus" style="margin:14px 0 10px">Отправляю ответ…</p>
+
+    <a class="send-btn wa" id="waLink" target="_blank" rel="noopener" style="display:none">
+      📱 Отправить через WhatsApp
+    </a>
+    <a class="send-btn tg" id="tgLink" target="_blank" rel="noopener" style="display:none">
+      ✈️ Написать в Telegram
+    </a>
+  </div>
+
+  <!-- ШАГ 4: успех -->
+  <div class="step" id="step4">
+    <span class="emoji-big">🌷</span>
+    <h1>Ответ отправлен!</h1>
+    <p class="sub">Спасибо. До встречи ✨</p>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   ⚙️ НАСТРОЙ ЗДЕСЬ (обязательно!):
+   1. WHATSAPP_PHONE — твой номер в международном формате,
+      только цифры, без «+». Пример для Казахстана: 77071234567
+   2. TELEGRAM_USERNAME — твой юзернейм в Telegram без «@».
+      Пример: beksultan_dev
+   ============================================================ */
+const WHATSAPP_PHONE   = "77711309898";
+const TELEGRAM_PHONE   = "+77711309898";
+
+/* Автоотправка через Telegram-бота */
+const TELEGRAM_BOT_TOKEN = "8670599878:AAGw6toT7dPNfTyL6WWDlhe8RNz6Mot5lek";
+const TELEGRAM_CHAT_ID   = "476863772";
+
+/* Варианты времени — можешь поменять под себя */
+const TIME_SLOTS = ["17:00","18:00","19:00","20:00"];
+
+let selectedTime = null;
+
+/* ---- нажатие на «Нет»: «Да» растёт, «Нет» сдаётся ---- */
+const noCounts = {"0":0, "":0};
+const noPhrasesByStep = {
+  "0": ["точно нет? 😉","неправильный ответ 🙃","кнопка что-то барахлит 😏","а если подумать? 😄","ладно, выбора нет 😎"],
+  "":  ["может, всё-таки да? 🙂","подумай ещё раз","я буду очень ждать","надеюсь на «да» 🙏","похоже, выбор очевиден 😊"]
+};
+function noClick(s){
+  const noCount = ++noCounts[s];
+  const noPhrases = noPhrasesByStep[s];
+  const yes = document.getElementById("yesBtn"+s);
+  const no  = document.getElementById("noBtn"+s);
+  const hint = document.getElementById("noHint"+s);
+  yes.style.transform = `scale(${1 + noCount*0.28})`;
+  no.style.transform  = `scale(${Math.max(0.35, 1 - noCount*0.15)})`;
+  no.style.opacity    = Math.max(0.3, 1 - noCount*0.12);
+  hint.textContent    = noPhrases[Math.min(noCount-1, noPhrases.length-1)];
+  hint.style.opacity  = 1;
+  if(noCount >= 5){ no.style.display = "none"; hint.style.display = "none"; }
+}
+
+/* генерируем кнопки времени */
+const grid = document.getElementById("timesGrid");
+TIME_SLOTS.forEach(t=>{
+  const b = document.createElement("button");
+  b.className = "time-btn";
+  b.textContent = t;
+  b.onclick = ()=>{
+    grid.querySelectorAll(".time-btn").forEach(x=>x.classList.remove("selected"));
+    b.classList.add("selected");
+    customBox.style.display = "none";
+    selectedTime = t;
+    checkReady();
+  };
+  grid.appendChild(b);
+});
+
+/* кнопка «Своё время» */
+const customBtn = document.createElement("button");
+customBtn.className = "time-btn";
+customBtn.textContent = "Своё ⏰";
+customBtn.style.gridColumn = "span 2";
+customBtn.onclick = ()=>{
+  grid.querySelectorAll(".time-btn").forEach(x=>x.classList.remove("selected"));
+  customBtn.classList.add("selected");
+  customBox.style.display = "block";
+  selectedTime = customInput.value || null;
+  checkReady();
+  customInput.focus();
+};
+grid.appendChild(customBtn);
+
+/* поле ввода своего времени */
+const customBox = document.createElement("div");
+customBox.style.cssText = "display:none;margin-top:12px";
+const customInput = document.createElement("input");
+customInput.type = "time";
+customInput.style.cssText =
+  "width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--card-border);"+
+  "background:rgba(255,255,255,.07);color:var(--ink);font-size:16px;font-family:inherit;color-scheme:dark";
+customInput.oninput = ()=>{
+  selectedTime = customInput.value || null;
+  checkReady();
+};
+customBox.appendChild(customInput);
+grid.parentNode.insertBefore(customBox, grid.nextSibling);
+
+/* дни — кнопками (надёжно работает на iPhone) */
+let selectedDate = null;
+const daysGrid = document.getElementById("daysGrid");
+const startDay = new Date(2026, 9, 17); // 17 октября 2026
+for(let i = 0; i < 2; i++){
+  const d = new Date(startDay);
+  d.setDate(startDay.getDate() + i);
+  const iso = `2026-10-${String(d.getDate()).padStart(2,"0")}`;
+  const b = document.createElement("button");
+  b.className = "time-btn";
+  b.textContent = d.toLocaleDateString("ru-RU",{weekday:"short", day:"numeric", month:"long"});
+  b.onclick = ()=>{
+    daysGrid.querySelectorAll(".time-btn").forEach(x=>x.classList.remove("selected"));
+    b.classList.add("selected");
+    selectedDate = iso;
+    checkReady();
+  };
+  daysGrid.appendChild(b);
+}
+
+function checkReady(){
+  document.getElementById("nextBtn").disabled = !(selectedDate && selectedTime);
+}
+
+function goStep(n){
+  document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
+  document.getElementById("step"+n).classList.add("active");
+  if(n===3){ buildLinks(); autoSend(); }
+}
+
+function formatDate(iso){
+  const d = new Date(iso+"T00:00:00");
+  return d.toLocaleDateString("ru-RU",{weekday:"long",day:"numeric",month:"long"});
+}
+
+let plainMsg = "";
+
+function buildLinks(){
+  const dateText = formatDate(selectedDate);
+  document.getElementById("summaryBox").innerHTML =
+    `Ответ: <b>Да</b> 🙂<br>День: <b>${dateText}</b><br>Время: <b>${selectedTime}</b>`;
+
+  plainMsg = `Ulzharkin простила 🤍\nОтвет на приглашение на свидание: да 🙂\nДень: ${dateText}\nВремя: ${selectedTime}`;
+  const msg = encodeURIComponent(plainMsg);
+  document.getElementById("waLink").href =
+    `https://wa.me/${WHATSAPP_PHONE}?text=${msg}`;
+  document.getElementById("tgLink").href =
+    `https://t.me/${TELEGRAM_PHONE}`;
+}
+
+/* ---- автоматическая отправка через Telegram-бота ---- */
+async function autoSend(){
+  const status = document.getElementById("sendStatus");
+  try{
+    const r = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: plainMsg })
+    });
+    const data = await r.json();
+    if(!data.ok) throw new Error(data.description || "send failed");
+    goStep(4);
+  }catch(e){
+    status.textContent = "Не получилось отправить автоматически — попробуй через WhatsApp 👇";
+    document.getElementById("waLink").style.display = "flex";
+    document.getElementById("tgLink").style.display = "flex";
+  }
+}
+
+/* мерцающие звёзды */
+for(let i=0;i<40;i++){
+  const s = document.createElement("span");
+  s.className = "star";
+  s.style.left = Math.random()*100 + "vw";
+  s.style.top  = Math.random()*100 + "vh";
+  s.style.animationDuration = (2 + Math.random()*4) + "s";
+  s.style.animationDelay = (Math.random()*4) + "s";
+  document.body.appendChild(s);
+}
+
+/* плавающие лепестки */
+const emojis = ["🌸","💗","✨","🤍"];
+for(let i=0;i<14;i++){
+  const h = document.createElement("span");
+  h.className = "heart";
+  h.textContent = emojis[i % emojis.length];
+  h.style.left = Math.random()*100 + "vw";
+  h.style.animationDuration = (10 + Math.random()*10) + "s";
+  h.style.animationDelay = (Math.random()*10) + "s";
+  h.style.fontSize = (14 + Math.random()*14) + "px";
+  document.body.appendChild(h);
+}
+</script>
+</body>
+</html>
